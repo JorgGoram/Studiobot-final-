@@ -14,7 +14,7 @@ export const GOOGLE_CONFIG = {
   ],
   redirectUri: import.meta.env.DEV
     ? 'http://localhost:5173/auth/callback'
-    : 'https://https://ai-agent-voice.netlify.app/auth/callback',
+    : 'https://studiobot.netlify.app/auth/callback',
 } as const;
 
 export const SQUARE_CONFIG = {
@@ -23,5 +23,5 @@ export const SQUARE_CONFIG = {
   scopes: ['APPOINTMENTS_READ', 'APPOINTMENTS_WRITE', 'CUSTOMERS_READ', 'CUSTOMERS_WRITE'],
   redirectUri: import.meta.env.DEV
     ? 'http://localhost:5173/auth/callback'
-    : 'https://https://ai-agent-voice.netlify.app/auth/callback',
+    : 'https://studiobot.netlify.app/auth/callback',
 } as const;
