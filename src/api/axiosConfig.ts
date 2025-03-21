@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase';
 
 // Create axios instance  
 const api = axios.create({
-    baseURL: import.meta.env.VIITE_BACKEND_URL || 'http://localhost:3457/api',
+    baseURL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:3457/api',
     headers: {
         'Content-Type': 'application/json'
     }
