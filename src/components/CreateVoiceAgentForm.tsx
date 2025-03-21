@@ -112,81 +112,79 @@ export function CreateVoiceAgentForm({ onSubmit }: CreateVoiceAgentFormProps) {
 
     setIsSubmitting(true);
     try {
-      const phoneNumber = await buyTwilioNumber();
-      console.log(phoneNumber)
       // First save the form data
       // Save optional preferences
-      // await saveOptionalPreferences({
-      //   appointment_type: formData.appointmentType || 'walkins',
-      //   operating_hours: formData.operatingHours,
-      //   piercing_service: formData.piercingServices,
-      //   hourly_rate: parseFloat(formData.hourlyRate),
-      //   specific_instructions: formData.specificInstructions,
-      // });
-      // const phoneNumber = await buyTwilioNumber();
-      // // const phoneNumber = '+18555968027';
-      // let tattoShopInfoPrompt: string | null = '';
-      // // Then update the profile with both assistant name and welcome message
-      // if (formData.website) {
-      //   try {
-      //     const tattoShopInfoJson = await extractTattooShopInfo(
-      //       formData.website
-      //     );
-      //     console.log(tattoShopInfoJson);
-      //     tattoShopInfoPrompt = generateTattooShopInfoPrompt(tattoShopInfoJson);
-      //   } catch (err: any) {
-      //     console.log(err);
-      //     throw new Error(err.message);
-      //   }
-      // }
-      // let assistant: AssistantPropsType = {
-      //   type: formData.callHandling,
-      //   name: formData.assistantName,
-      //   // phone_number: '',
-      //   phone_number: phoneNumber || '',
-      //   agent: {
-      //     llm: 'synthflow',
-      //     language: formData.language,
-      //     greeting_message: formData.welcomeMessage,
-      //     voice_id: 'SAz9YHcvj6GT2YYXdXww',
-      //     prompt:
-      //       generatePrompt(
-      //         formData.operatingHours,
-      //         formData.hourlyRate,
-      //         formData.specificInstructions
-      //       ) + tattoShopInfoPrompt,
-      //   },
-      // };
-      // try {
-      //   const model_id: string = await createAssistant(assistant);
-      //   console.log(model_id);
-      //   if (model_id) {
-      //     await updateAssistant({
-      //       ...assistant,
-      //       external_webhook_url: `${window.origin}/.netlify/functions/webhook/${model_id}`,
-      //     });
-      //     await createPhoneNumber(phoneNumber, model_id);
-      //     await updateUserProfile({
-      //       ownerName: formData.ownerName,
-      //       shopName: formData.shopName,
-      //       timezone: formData.timezone,
-      //       assistantName: formData.assistantName,
-      //       welcomeMessage: formData.welcomeMessage,
-      //       completedOnboarding: true,
-      //       model_id: model_id,
-      //       website: formData.website,
-      //       phoneNumber: formData.phoneNumber,
-      //       dailycallLimit: formData.dailyCallLimit,
-      //       automaticReminders: formData.automaticReminders,
-      //       waitlistManagement: formData.waitlistManagement,
-      //       totalUsageMinutes: 0,
-      //     });
-      //   }
-      //   onSubmit(formData);
-      // } catch (err: any) {
-      //   console.error('Error network Error', err);
-      //   throw new Error(err.message);
-      // }
+      await saveOptionalPreferences({
+        appointment_type: formData.appointmentType || 'walkins',
+        operating_hours: formData.operatingHours,
+        piercing_service: formData.piercingServices,
+        hourly_rate: parseFloat(formData.hourlyRate),
+        specific_instructions: formData.specificInstructions,
+      });
+      const phoneNumber = await buyTwilioNumber();
+      // const phoneNumber = '+18555968027';
+      let tattoShopInfoPrompt: string | null = '';
+      // Then update the profile with both assistant name and welcome message
+      if (formData.website) {
+        try {
+          const tattoShopInfoJson = await extractTattooShopInfo(
+            formData.website
+          );
+          console.log(tattoShopInfoJson);
+          tattoShopInfoPrompt = generateTattooShopInfoPrompt(tattoShopInfoJson);
+        } catch (err: any) {
+          console.log(err);
+          throw new Error(err.message);
+        }
+      }
+      let assistant: AssistantPropsType = {
+        type: formData.callHandling,
+        name: formData.assistantName,
+        // phone_number: '',
+        phone_number: phoneNumber || '',
+        agent: {
+          llm: 'synthflow',
+          language: formData.language,
+          greeting_message: formData.welcomeMessage,
+          voice_id: 'SAz9YHcvj6GT2YYXdXww',
+          prompt:
+            generatePrompt(
+              formData.operatingHours,
+              formData.hourlyRate,
+              formData.specificInstructions
+            ) + tattoShopInfoPrompt,
+        },
+      };
+      try {
+        const model_id: string = await createAssistant(assistant);
+        console.log(model_id);
+        if (model_id) {
+          await updateAssistant({
+            ...assistant,
+            external_webhook_url: `${window.origin}/.netlify/functions/webhook/${model_id}`,
+          });
+          await createPhoneNumber(phoneNumber, model_id);
+          await updateUserProfile({
+            ownerName: formData.ownerName,
+            shopName: formData.shopName,
+            timezone: formData.timezone,
+            assistantName: formData.assistantName,
+            welcomeMessage: formData.welcomeMessage,
+            completedOnboarding: true,
+            model_id: model_id,
+            website: formData.website,
+            phoneNumber: formData.phoneNumber,
+            dailycallLimit: formData.dailyCallLimit,
+            automaticReminders: formData.automaticReminders,
+            waitlistManagement: formData.waitlistManagement,
+            totalUsageMinutes: 0,
+          });
+        }
+        onSubmit(formData);
+      } catch (err: any) {
+        console.error('Error network Error', err);
+        throw new Error(err.message);
+      }
     } catch (err) {
       console.error('Error saving form data:', err);
       setErrors({
