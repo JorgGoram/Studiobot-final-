@@ -3,8 +3,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 
 // Configure PDF.js worker
 const loadPdfWorker = async () => {
-  const worker = await import('pdfjs-dist/build/pdf.worker.mjs');
-  pdfjsLib.GlobalWorkerOptions.workerSrc = worker.default;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 };
 
 // Initialize PDF.js worker
