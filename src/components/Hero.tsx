@@ -54,7 +54,7 @@ export function Hero({
               <img 
                 src="/Tattoo machine.png"
                 alt="Professional tattoo machine"
-                className="absolute inset-0 w-full h-full object-contain opacity-60 hover:opacity-80 transition-all duration-300 transform hover:scale-105"
+                className="absolute inset-10 w-full h-full object-contain opacity-60 hover:opacity-80 transition-all duration-300 transform hover:scale-105"
                 loading="eager"
               />
             </div>

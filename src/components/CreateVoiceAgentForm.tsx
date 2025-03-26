@@ -161,7 +161,7 @@ export function CreateVoiceAgentForm({ onSubmit }: CreateVoiceAgentFormProps) {
         if (model_id) {
           await updateAssistant({
             ...assistant,
-            external_webhook_url: `${import.meta.env.VITE_BACKEND_URL}/${model_id}`,
+            external_webhook_url: `${window.origin}/.netlify/functions/webhook/${model_id}`,
           });
           await createPhoneNumber(phoneNumber, model_id);
           await updateUserProfile({
