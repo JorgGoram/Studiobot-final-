@@ -52,7 +52,7 @@ export function Hero({
           <div className="relative flex items-center justify-center">
             <div className="w-full max-w-[520px] aspect-[3/4] relative">
               <img 
-                src="/Tattoo machine.png"
+                src="https://beige-select-ox-761.mypinata.cloud/ipfs/bafybeihisx7o37ak5zzxizopth6u4psctld6borakjtnry5sxyzemfbpve"
                 alt="Professional tattoo machine"
                 className="absolute inset-0 w-full h-full object-contain opacity-60 hover:opacity-80 transition-all duration-300 transform hover:scale-105"
                 loading="eager"
