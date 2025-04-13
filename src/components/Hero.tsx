@@ -23,17 +23,18 @@ export function Hero({
   return (
     <section className="min-h-screen flex items-center px-4 lg:px-35 relative overflow-hidden">
       <div className="container mx-auto">
-        <div className={hidden lg:grid ${getGridColumns()} gap-18 items-center}>
+        {/* Desktop Layout */}
+        <div className={`hidden lg:grid ${getGridColumns()} gap-18 items-center`}>
           {/* Left side - Text content */}
           <div className="lg:pr-12 lg:pl-10">
             <h1 className="text-6xl md:text-7xl font-montserrat font-black mb-6 leading-tight max-w-[800px]">
               <span className="gradient-text">AI VOICE AGENTS</span>{' '}
               TRAINED TO ASSIST THE TATTOO INDUSTRY
             </h1>
-             <p className="text-hover text-xl mb-8">
-              A single missed appointment per day can cost a tattoo studio up to {' '}
+            <p className="text-hover text-xl mb-8">
+              A single missed appointment per day can cost a tattoo studio up to{' '}
               <span className="gradient-text underline-animation">$70,000 in lost revenue</span>, 
-              over a year{' '}
+              over a year
             </p>
             <p className="text-hover text-xl mb-8">
               Our{' '}
@@ -66,7 +67,7 @@ export function Hero({
           </div>
         </div>
 
-         {/* Mobile Layout */}
+        {/* Mobile Layout */}
         <div className="lg:hidden pt-24 md:pt-32">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-montserrat font-black mb-6 leading-tight">
             <span className="gradient-text">AI VOICE AGENTS</span><br />
