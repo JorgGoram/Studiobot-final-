@@ -34,7 +34,7 @@ export function Hero({
               A single missed appointment per day can cost a tattoo studio up to {' '}
               <span className="gradient-text underline-animation">$70,000 in lost revenue</span>, 
               over a year{' '}
-            </p><BR></BR>
+            </p><BR>
             <p className="text-hover text-xl mb-8">
               Our{' '}
               <span className="gradient-text underline-animation">AI voice agents</span>, 
@@ -77,7 +77,7 @@ export function Hero({
               A single missed appointment per day can cost a tattoo studio up to {' '}
               <span className="gradient-text underline-animation">$70,000 in lost revenue</span>, 
               over a year{' '}
-            </p><BR></BR>
+            </p><BR>
           <p className="text-hover text-lg sm:text-xl mb-8">
             Our{' '}
             <span className="gradient-text underline-animation">AI voice agents</span>, 
