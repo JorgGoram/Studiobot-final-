@@ -68,12 +68,17 @@ export function Hero({
             TRAINED TO ASSIST<br />
             THE TATTOO INDUSTRY
           </h1>
+          <p className="text-hover text-xl mb-8">
+              A single missed appointment per day can cost a tattoo studio up to {' '}
+              <span className="gradient-text underline-animation">$70,000 in lost revenue</span>, 
+              over a year{' '}
+            </p><BR></BR>
           <p className="text-hover text-lg sm:text-xl mb-8">
             Our{' '}
             <span className="gradient-text underline-animation">AI voice agents</span>, 
             trained for the tattoo industry, work 24/7
             handling calls, appointments, customer queries and reminders.
-            Focus on your art while our AI manages{' '}
+            You can focus on your art while our AI manages{' '}
             <span className="gradient-text underline-animation">communication tasks</span>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
