@@ -21,7 +21,7 @@ export function AboutUs({ onStartCall }: AboutUsProps) {
       alt: "Close up of tattoo work"
     },
     {
-      url: "public/purple tattoo.avif",
+      url: "/purple tattoo.avif",
       alt: "Detailed tattoo work"
     }
   ].map(img => ({
