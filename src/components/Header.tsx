@@ -78,7 +78,7 @@ export function Header({
             animate={{ opacity: 1, y: 0 }}
             className="text-base sm:text-xl font-medium tracking-tight text-white"
           >
-            {userProfile?.shopName || 'studiobotz'}
+            {userProfile?.shopName || 'studiobot'}
           </motion.h1>
         </div>
 
