@@ -7,7 +7,7 @@ interface HeroProps {
 
 export function Hero({ 
   onStartCall, 
-  gridDistribution = 'center'
+  gridDistribution = 'center' 
 }: HeroProps) {
   const getGridColumns = () => {
     switch (gridDistribution) {
@@ -21,40 +21,40 @@ export function Hero({
   };
 
   return (
-    <section className="min-h-screen flex items-center px-4 lg:px-35 relative overflow-hidden">
+    <section className="min-h-screen flex items-center px-4 lg:px-35 relative overflow-hidden pt-32 lg:pt-0">
       <div className="container mx-auto">
+
         {/* Desktop Layout */}
         <div className={`hidden lg:grid ${getGridColumns()} gap-18 items-center`}>
-          {/* Left side - Text content */}
+          
+          {/* Left Column - Text */}
           <div className="lg:pr-12 lg:pl-10">
             <h1 className="text-6xl md:text-7xl font-montserrat font-black mb-6 leading-tight max-w-[800px]">
               <span className="gradient-text">AI VOICE AGENTS</span>{' '}
               TRAINED TO ASSIST THE TATTOO INDUSTRY
             </h1>
+
             <p className="text-hover text-xl mb-8">
               A single missed appointment per day can cost a tattoo studio up to{' '}
-              <span className="gradient-text underline-animation">$70,000 in lost revenue</span>, 
-              over a year
+              <span className="gradient-text underline-animation">$70,000 in lost revenue</span>{' '}
+              over a year.
             </p>
+
             <p className="text-hover text-xl mb-8">
               Our{' '}
               <span className="gradient-text underline-animation">AI voice agents</span>, 
-              trained for the tattoo industry, work 24/7
-              handling calls, appointments, customer queries and reminders.
-              Focus on your art while our AI manages{' '}
+              trained for the tattoo industry, work 24/7 handling calls, appointments, 
+              customer queries and reminders. Focus on your art while our AI manages{' '}
               <span className="gradient-text underline-animation">communication tasks</span>.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <ElegantButton onClick={onStartCall}>
-                Start Now →
-              </ElegantButton>
-              <HologramButton onClick={onStartCall}>
-                Live Demo
-              </HologramButton>
+              <ElegantButton onClick={onStartCall}>Start Now →</ElegantButton>
+              <HologramButton onClick={onStartCall}>Live Demo</HologramButton>
             </div>
           </div>
 
-          {/* Right side - Image (desktop only) */}
+          {/* Right Column - Image */}
           <div className="relative flex items-center justify-center">
             <div className="w-full max-w-[520px] aspect-[3/4] relative">
               <img 
@@ -74,17 +74,21 @@ export function Hero({
             TRAINED TO ASSIST<br />
             THE TATTOO INDUSTRY
           </h1>
+
           <p className="text-hover text-xl mb-8">
             A single missed appointment per day can cost a tattoo studio up to{' '}
-            <span className="gradient-text underline-animation">$70,000 in lost revenue</span>, over a year
+            <span className="gradient-text underline-animation">$70,000 in lost revenue</span>{' '}
+            over a year.
           </p>
+
           <p className="text-hover text-lg sm:text-xl mb-8">
             Our{' '}
-            <span className="gradient-text underline-animation">AI voice agents</span>, trained for the tattoo industry,
-            work 24/7 handling calls, appointments, customer queries and reminders.
-            You can focus on your art while our AI manages{' '}
+            <span className="gradient-text underline-animation">AI voice agents</span>, 
+            trained for the tattoo industry, work 24/7 handling calls, appointments, 
+            customer queries and reminders. You can focus on your art while our AI manages{' '}
             <span className="gradient-text underline-animation">communication tasks</span>.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4">
             <ElegantButton onClick={onStartCall}>Start Now →</ElegantButton>
             <HologramButton onClick={onStartCall}>Live Demo</HologramButton>
