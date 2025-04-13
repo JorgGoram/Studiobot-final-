@@ -30,6 +30,11 @@ export function Hero({
               <span className="gradient-text">AI VOICE AGENTS</span>{' '}
               TRAINED TO ASSIST THE TATTOO INDUSTRY
             </h1>
+             <p className="text-hover text-xl mb-8">
+              A single missed appointment per day can cost a tattoo studio up to {' '}
+              <span className="gradient-text underline-animation">$70,000 in lost revenue</span>, 
+              over a year{' '}
+            </p><BR></BR>
             <p className="text-hover text-xl mb-8">
               Our{' '}
               <span className="gradient-text underline-animation">AI voice agents</span>, 
