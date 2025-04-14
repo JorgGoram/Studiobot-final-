@@ -69,8 +69,8 @@ export function Header({
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-md z-50 border-b border-gray-800">
-      <header className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4 flex justify-between items-center">
+    <div className="fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-md z-50 border-b border-gray-800 h-16 sm:h-20"> {/* Added fixed height */}
+  <header className="max-w-7xl mx-auto px-2 sm:px-4 h-full py-2 sm:py-4 flex justify-between items-center"> 
         <div className="flex items-center space-x-2 sm:space-x-4">
           <Bot className="w-5 h-5 sm:w-8 sm:h-8 text-[#904af2]" />
           <motion.h1
