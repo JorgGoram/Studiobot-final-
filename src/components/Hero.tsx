@@ -21,7 +21,7 @@ export function Hero({
   };
 
   return (
-    <section className="min-h-screen flex items-center px-4 lg:px-35 relative overflow-hidden pt-32 lg:pt-0">
+    <section className="min-h-screen flex items-center px-4 lg:px-35 relative overflow-hidden pt-16 sm:pt-16"> {/* Adjusted padding-top */}
       <div className="container mx-auto">
 
         {/* Desktop Layout */}
