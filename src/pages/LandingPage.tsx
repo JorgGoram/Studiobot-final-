@@ -9,6 +9,7 @@ import { FAQ } from '../components/FAQ';
 import { AuthModal } from '../components/auth/AuthModal';
 import { Header } from '../components/Header';
 import { AnimatePresence } from 'framer-motion';
+import { PricingSection } from '../components/PricingSection';
 
 export function LandingPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -71,12 +72,12 @@ export function LandingPage() {
         <div className="section-background">
           <ROICalculator />
         </div>
+        <div className="section-background">
+          <PricingSection onStartCall={scrollToWidget} />
+        </div>
         <div className="section-background faq-background">
           <FAQ />
         </div>
-        {/* <div className="section-background">
-          <ApiTest />
-        </div> */}
       </main>
     </div>
   );
