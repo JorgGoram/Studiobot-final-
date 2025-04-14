@@ -69,8 +69,9 @@ export function PricingSection({ onStartCall }: PricingSectionProps) {
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-montserrat font-black mb-4">
-            <span className="text-white">SIMPLE</span>{' '}
-            <span className="gradient-text">PRICING</span>
+            <span className="text-white">GET YOUR </span>{' '}
+            <span className="gradient-text">AI ANSWERING</span>
+            <span className="text-white"> TODAY</span>{' '}
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
             Choose the perfect plan for your studio's needs. All plans include a 14-day free trial.
