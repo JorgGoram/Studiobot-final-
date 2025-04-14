@@ -88,10 +88,10 @@ export function PricingSection({ onStartCall }: PricingSectionProps) {
             >
               Monthly
             </button>
-            <div className="relative">
+            <div className="relative cursor-pointer" onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}>
               <div className="w-12 h-6 bg-[#904af2]/20 rounded-full">
                 <div
-                  className={`absolute w-4 h-4 bg-[#904af2] rounded-full top-1 transition-all ${
+                  className={`absolute w-4 h-4 bg-[#904af2] rounded-full top-1 transition-all duration-300 ${
                     billingCycle === 'yearly' ? 'left-7' : 'left-1'
                   }`}
                 />
