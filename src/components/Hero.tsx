@@ -37,11 +37,7 @@ export function Hero({
             <p className="text-hover text-xl mb-8">
               A single missed appointment per day can cost a tattoo studio up to{' '}
               <span className="gradient-text underline-animation">$70,000 in lost revenue</span>{' '}
-              over a year.
-            </p>
-
-            <p className="text-hover text-xl mb-8">
-              Our{' '}
+              over a year. Our{' '}
               <span className="gradient-text underline-animation">AI voice agents</span>, 
               trained for the tattoo industry, work 24/7 handling calls, appointments, 
               customer queries and reminders. Focus on your art while our AI manages{' '}
