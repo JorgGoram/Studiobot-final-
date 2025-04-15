@@ -39,7 +39,7 @@ export function Hero({
               <span className="gradient-text underline-animation">$70,000 in lost revenue</span>{' '}
               over a year. Our{' '}
               <span className="gradient-text underline-animation">AI voice agents</span> are trained for the tattoo industry, work 24/7 handling calls, appointments, 
-              customer queries and reminders..
+              customer queries and reminders.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
