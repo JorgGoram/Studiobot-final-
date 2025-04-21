@@ -1,43 +1,75 @@
 
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { supabase } from '../../lib/supabase';
+import { Leaf, Tree } from 'lucide-react';
 
 interface Tree {
-  id: number;
-  height: number;
-  color: string;
+  id: string;
+  growth_stage: number;
+  xp_threshold: number;
+  name: string;
 }
 
-export const ForestGrowth = ({ xp = 0 }) => {
-  const generateTrees = (xpAmount: number): Tree[] => {
-    const treeCount = Math.min(Math.floor(xpAmount / 100), 10);
-    return Array.from({ length: treeCount }, (_, i) => ({
-      id: i,
-      height: 40 + Math.min(xpAmount - i * 100, 100) * 0.4,
-      color: `rgb(${100 + i * 10}, ${150 + i * 5}, ${100 + i * 8})`
-    }));
+export function ForestGrowth({ xp }: { xp: number }) {
+  const [trees, setTrees] = useState<Tree[]>([]);
+
+  useEffect(() => {
+    loadTrees();
+  }, [xp]);
+
+  const loadTrees = async () => {
+    const { data, error } = await supabase
+      .from('forest_trees')
+      .select('*')
+      .order('xp_threshold', { ascending: true });
+    
+    if (error) {
+      console.error('Error loading forest:', error);
+      return;
+    }
+    
+    setTrees(data || []);
   };
 
-  const trees = generateTrees(xp);
+  const calculateGrowth = (threshold: number) => {
+    return Math.min(100, (xp / threshold) * 100);
+  };
 
   return (
-    <div className="p-6 glass-panel rounded-xl">
-      <h3 className="text-xl font-semibold mb-4">Your Efficiency Forest</h3>
-      <div className="h-60 flex items-end justify-center gap-4">
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold mb-4">Professional Growth Forest</h2>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {trees.map((tree) => (
           <motion.div
             key={tree.id}
-            initial={{ height: 0 }}
-            animate={{ height: tree.height }}
-            transition={{ duration: 1, type: 'spring' }}
-            style={{ backgroundColor: tree.color }}
-            className="w-8 rounded-t-lg"
-          />
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative"
+          >
+            <div className="p-4 rounded-lg bg-gradient-to-b from-green-900/20 to-green-600/10">
+              <div className="flex flex-col items-center">
+                {calculateGrowth(tree.xp_threshold) >= 100 ? (
+                  <Tree className="w-12 h-12 text-green-400" />
+                ) : (
+                  <Leaf className="w-12 h-12 text-green-600/60" />
+                )}
+                <h3 className="mt-2 font-medium text-center">{tree.name}</h3>
+                <div className="w-full h-2 bg-gray-700 rounded-full mt-3">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${calculateGrowth(tree.xp_threshold)}%` }}
+                    className="h-full bg-green-500 rounded-full"
+                  />
+                </div>
+                <p className="mt-2 text-sm text-gray-400">
+                  {calculateGrowth(tree.xp_threshold)}% Growth
+                </p>
+              </div>
+            </div>
+          </motion.div>
         ))}
-      </div>
-      <div className="mt-4 text-center text-sm text-zinc-400">
-        {trees.length} trees grown • {xp} XP earned
       </div>
     </div>
   );
-};
+}
