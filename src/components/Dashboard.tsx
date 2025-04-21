@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Zap, Clock } from 'lucide-react';
+import { Badges } from './gamification/Badges';
+import { ForestGrowth } from './gamification/ForestGrowth';
+import { SeasonalEvents } from './gamification/SeasonalEvents';
 import { CreateAgentModal } from './CreateAgentModal';
 import { UserProfile } from '../types/UserProfile';
 import {
@@ -94,6 +97,13 @@ export function Dashboard({ data, userProfile }: DashboardPropsType) {
           <span className="text-sm text-zinc-400">Current Level</span>
         </div>
       </motion.div>
+
+      {/* Gamification Features */}
+      <div className="space-y-8">
+        <Badges userXP={analysisData.total_complete || 0} />
+        <ForestGrowth xp={analysisData.total_complete || 0} />
+        <SeasonalEvents />
+      </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
