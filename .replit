@@ -12,7 +12,7 @@ localPort = 5173
 externalPort = 80
 
 [workflows]
-runButton = "Dev"
+runButton = "Start App"
 
 [[workflows.workflow]]
 name = "Dev"
@@ -22,3 +22,12 @@ mode = "parallel"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd server && python app.py"
+
+[[workflows.workflow]]
+name = "Start App"
+author = 41591996
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
