@@ -75,6 +75,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Enhanced session management with retry logic
 export const getSession = async (retries = 3, delay = 1000) => {
+  console.log('Getting session...');
   for (let i = 0; i < retries; i++) {
     try {
       const {
