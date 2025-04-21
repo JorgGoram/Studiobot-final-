@@ -14,6 +14,11 @@ export const NAVIGATION_ITEMS = [
     icon: LayoutDashboard
   },
   {
+    id: 'gamification',
+    label: 'Rewards',
+    icon: Trophy
+  },
+  {
     id: 'analytics',
     label: 'Analytics',
     icon: Activity

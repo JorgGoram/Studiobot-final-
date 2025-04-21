@@ -6,6 +6,7 @@ import { NavigationTabs } from '../components/NavigationTabs';
 import { MouseTrail } from '../components/MouseTrail';
 import { Dashboard } from '../components/Dashboard';
 import { AnalyticsSection } from '../components/analytics/AnalyticsSection';
+import { GamificationPage } from './GamificationPage';
 import { CallHistory } from '../components/history/CallHistory';
 import { HelpCenter } from '../components/help/HelpCenter';
 import { GeneralSettings } from '../components/settings/GeneralSettings';
@@ -418,6 +419,9 @@ export function UserDashboard() {
               )}
               {activeSection === 'analytics' && (
                 <AnalyticsSection data={analysisData} />
+              )}
+              {activeSection === 'gamification' && (
+                <GamificationPage userXP={analysisData.total_complete || 0} />
               )}
               {activeSection === 'history' && (
                 <CallHistory modelId={userProfile?.model_id} />
