@@ -75,13 +75,24 @@ export function Dashboard({ data, userProfile }: DashboardPropsType) {
             <Trophy className="w-6 h-6 text-purple-400" />
           </div>
           <div>
-            <h2 className="mb-1 text-lg font-medium">Level 3 Achieved!</h2>
+            <div className="mb-2">
+              <h2 className="text-lg font-medium">Progress Tracker</h2>
+              <div className="w-full bg-gray-700 rounded-full h-2.5 mt-2">
+                <div 
+                  className="bg-purple-600 h-2.5 rounded-full" 
+                  style={{ width: `${Math.min((analysisData.total_complete || 0) / 10, 100)}%` }}
+                />
+              </div>
+            </div>
             <p className="text-sm text-zinc-400">
-              Your main agent has handled over 1,000 calls successfully.
+              {analysisData.total_complete || 0} XP earned - Next reward at {Math.ceil((analysisData.total_complete || 0) / 10) * 10} XP
             </p>
           </div>
         </div>
-        <button className="btn-ghost">View Achievements</button>
+        <div className="flex flex-col items-end">
+          <span className="text-2xl font-bold text-purple-400">{Math.floor((analysisData.total_complete || 0) / 100)}</span>
+          <span className="text-sm text-zinc-400">Current Level</span>
+        </div>
       </motion.div>
 
       {/* Quick Stats */}
