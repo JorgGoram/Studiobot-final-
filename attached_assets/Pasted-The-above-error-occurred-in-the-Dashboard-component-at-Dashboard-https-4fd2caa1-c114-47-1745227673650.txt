@@ -1,0 +1,23 @@
+The above error occurred in the <Dashboard> component:
+
+    at Dashboard (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/src/components/Dashboard.tsx:27:29)
+    at div
+    at MotionComponent (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/framer-motion.js?v=24ea294f:971:40)
+    at PresenceChild (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/framer-motion.js?v=24ea294f:147:24)
+    at AnimatePresence (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/framer-motion.js?v=24ea294f:236:26)
+    at main
+    at div
+    at MotionComponent (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/framer-motion.js?v=24ea294f:971:40)
+    at UserDashboard (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/src/pages/UserDashboard.tsx:51:45)
+    at App (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/src/App.tsx:25:27)
+    at RenderedRoute (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=24ea294f:4075:5)
+    at RenderErrorBoundary (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=24ea294f:4035:5)
+    at DataRoutes (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=24ea294f:5226:5)
+    at Router (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=24ea294f:4488:15)
+    at RouterProvider (https://4fd2caa1-c114-47b9-bdb3-4f69888a0fd5-00-2tszd08ass7wl.riker.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=24ea294f:5040:5)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary.
+React Router caught the following error during render 
+ReferenceError {}
+ 
+Object {componentStack: "↵    at Dashboard…"}
