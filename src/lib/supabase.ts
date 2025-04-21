@@ -12,8 +12,15 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase credentials');
+  console.error('Missing environment variables:');
+  console.error('VITE_SUPABASE_URL:', supabaseUrl ? '✓' : '✗');
+  console.error('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? '✓' : '✗');
+  throw new Error('Missing required Supabase environment variables');
 }
+
+// Add retry logic
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000;
 
 // Test account credentials
 export const createTestAccount = async () => {
