@@ -363,7 +363,10 @@ export async function loadUserProfile(): Promise<UserProfile | null> {
     const session = await getSession();
     if (!session?.user) return null;
 
-    const { data } = await api.get(`/user-profile`)
+    console.log('Loading user profile...');
+    const response = await api.get(`/user-profile`);
+    console.log('User profile response:', response);
+    const { data } = response;
     return {
       ownerName: data.owner_name,
       shopName: data.shop_name,

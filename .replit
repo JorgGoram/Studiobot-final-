@@ -21,8 +21,8 @@ mode = "parallel"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "cd server && python app.py &"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python server/app.py"
+args = "npm run dev"

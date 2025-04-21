@@ -2,9 +2,12 @@ import axios from 'axios';
 import { supabase } from '../lib/supabase';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://0.0.0.0:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://0.0.0.0:5000',
   timeout: 15000,
-  withCredentials: true
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
 // Add auth token to requests
