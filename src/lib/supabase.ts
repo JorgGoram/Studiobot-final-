@@ -17,25 +17,50 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 // Test account credentials
 export const createTestAccount = async () => {
-  const { data, error } = await supabase.auth.signUp({
-    email: 'test@example.com',
-    password: 'Test123!',
-    options: {
-      data: {
-        name: 'Test User',
-        plan: 'TRIAL',
-        totalUsageMinutes: 0,
-        planEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days trial
-      }
+  try {
+    // First check if account exists
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email: 'test@example.com',
+      password: 'Test123!'
+    });
+
+    if (signInData?.user) {
+      return signInData;
     }
-  });
-  
-  if (error) {
-    console.error('Error creating test account:', error);
-    return null;
+
+    // If account doesn't exist, create it
+    const { data, error } = await supabase.auth.signUp({
+      email: 'test@example.com',
+      password: 'Test123!',
+      options: {
+        data: {
+          name: 'Test User',
+          plan: 'TRIAL',
+          totalUsageMinutes: 0,
+          planEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+        }
+      }
+    });
+    
+    if (error) {
+      console.error('Error creating test account:', error);
+      throw error;
+    }
+
+    // Create initial profile
+    await saveUserProfile({
+      ownerName: 'Test User',
+      shopName: 'Test Shop',
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      completedOnboarding: true,
+      plan: 'TRIAL'
+    });
+    
+    return data;
+  } catch (error) {
+    console.error('Error in test account setup:', error);
+    throw error;
   }
-  
-  return data;
 };
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
