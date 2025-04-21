@@ -12,6 +12,30 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
+
+// Test account credentials
+export const createTestAccount = async () => {
+  const { data, error } = await supabase.auth.signUp({
+    email: 'test@example.com',
+    password: 'Test123!',
+    options: {
+      data: {
+        name: 'Test User',
+        plan: 'TRIAL',
+        totalUsageMinutes: 0,
+        planEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days trial
+      }
+    }
+  });
+  
+  if (error) {
+    console.error('Error creating test account:', error);
+    return null;
+  }
+  
+  return data;
+};
+
   throw new Error('Missing Supabase credentials');
 }
 
