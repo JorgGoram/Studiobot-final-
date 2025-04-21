@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Trophy } from 'lucide-react';
 import { Target, Zap, Clock } from 'lucide-react';
 import { CreateAgentModal } from './CreateAgentModal';
 import { UserProfile } from '../types/UserProfile';
