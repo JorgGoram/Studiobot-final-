@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Target, Zap, Clock } from 'lucide-react';
 import { Badges } from './gamification/Badges';
-import { ForestGrowth } from './gamification/ForestGrowth';
 import { SeasonalEvents } from './gamification/SeasonalEvents';
 import { CreateAgentModal } from './CreateAgentModal';
 import { UserProfile } from '../types/UserProfile';
@@ -51,8 +50,8 @@ export function Dashboard({ data, userProfile }: DashboardPropsType) {
   const successRate =
     analysisData.total_records > 0
       ? Math.round(
-        (analysisData.total_complete / analysisData.total_records) * 100
-      )
+          (analysisData.total_complete / analysisData.total_records) * 100
+        )
       : 0;
 
   return (
@@ -101,7 +100,6 @@ export function Dashboard({ data, userProfile }: DashboardPropsType) {
       {/* Gamification Features */}
       <div className="space-y-8">
         <Badges userXP={analysisData.total_complete || 0} />
-        <ForestGrowth xp={analysisData.total_complete || 0} />
         <SeasonalEvents />
       </div>
 
@@ -113,7 +111,7 @@ export function Dashboard({ data, userProfile }: DashboardPropsType) {
             <p className="text-zinc-400">Track your progress and unlock rewards as you excel</p>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 gap-8">
           {/* Badges Section */}
           <motion.div
@@ -122,16 +120,6 @@ export function Dashboard({ data, userProfile }: DashboardPropsType) {
             className="glass-panel p-6 rounded-xl"
           >
             <Badges userXP={analysisData.total_complete || 0} />
-          </motion.div>
-
-          {/* Forest Growth Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="glass-panel p-6 rounded-xl"
-          >
-            <ForestGrowth xp={analysisData.total_complete || 0} />
           </motion.div>
 
           {/* Seasonal Events Section */}
