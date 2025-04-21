@@ -12,11 +12,10 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing environment variables:');
-  console.error('VITE_SUPABASE_URL:', supabaseUrl ? '✓' : '✗');
-  console.error('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? '✓' : '✗');
-  throw new Error('Missing required Supabase environment variables');
+  throw new Error('Missing required Supabase environment variables. Please check your Secrets configuration.');
 }
+
+// Initialize Supabase client
 
 // Add retry logic
 const MAX_RETRIES = 3;
