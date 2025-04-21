@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { supabase } from '../../lib/supabase';
-import { Leaf, Tree, Sun, Cloud } from 'lucide-react';
+import { Leaf,  Sun, Cloud, PalmTree } from 'lucide-react';
 
 interface Tree {
   id: string;
@@ -24,12 +23,12 @@ export function ForestGrowth({ xp }: { xp: number }) {
       .from('forest_trees')
       .select('*')
       .order('xp_threshold', { ascending: true });
-    
+
     if (error) {
       console.error('Error loading forest:', error);
       return;
     }
-    
+
     setTrees(data || []);
   };
 
@@ -54,7 +53,7 @@ export function ForestGrowth({ xp }: { xp: number }) {
         {trees.map((tree) => {
           const growthPercent = calculateGrowth(tree.xp_threshold);
           const isFullyGrown = growthPercent >= 100;
-          
+
           return (
             <motion.div
               key={tree.id}
@@ -71,7 +70,7 @@ export function ForestGrowth({ xp }: { xp: number }) {
                         animate={{ scale: 1 }}
                         className="text-green-400"
                       >
-                        <Tree className="w-16 h-16" />
+                        <PalmTree className="w-16 h-16" />
                       </motion.div>
                     ) : (
                       <motion.div
@@ -90,10 +89,10 @@ export function ForestGrowth({ xp }: { xp: number }) {
                       </motion.div>
                     )}
                   </div>
-                  
+
                   <h3 className="mt-2 font-medium text-center">{tree.name}</h3>
                   <p className="text-sm text-gray-400 text-center mt-1">{tree.description}</p>
-                  
+
                   <div className="w-full h-2 bg-gray-700/50 rounded-full mt-4 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
@@ -102,7 +101,7 @@ export function ForestGrowth({ xp }: { xp: number }) {
                       transition={{ duration: 1, ease: "easeOut" }}
                     />
                   </div>
-                  
+
                   <p className="mt-2 text-sm text-gray-400">
                     {growthPercent.toFixed(0)}% Growth
                   </p>
