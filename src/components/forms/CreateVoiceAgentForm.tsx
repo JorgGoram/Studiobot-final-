@@ -95,6 +95,16 @@ export function CreateVoiceAgentForm({ onSubmit }: CreateVoiceAgentFormProps) {
           </p>
         </motion.div>
 
+        <div className="flex items-center justify-between mb-4">
+          <button
+            type="button"
+            onClick={() => window.location.href = '/'}
+            className="text-zinc-400 hover:text-white transition-colors flex items-center"
+          >
+            <ChevronLeft className="w-4 h-4 mr-1" />
+            Back to Home
+          </button>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           {step === 1 ? (
             <OperationalPreferencesStep

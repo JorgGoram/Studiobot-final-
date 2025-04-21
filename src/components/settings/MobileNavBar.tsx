@@ -39,7 +39,7 @@ export function MobileNavBar({ settingsCategories, activeItem, onNavigation }: M
   const activeCategory = getActiveCategory();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-md border-t border-gray-800 z-30">
+    <div className="fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-md border-t border-gray-800 z-30 mb-safe">
       {/* Main bottom navigation */}
       <nav className="grid grid-cols-4 items-center relative">
         {settingsCategories.map((category) => {

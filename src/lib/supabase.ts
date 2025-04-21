@@ -1,4 +1,3 @@
-
 import { createClient } from '@supabase/supabase-js';
 import type { UserProfile } from '../types/UserProfile';
 import type {
@@ -12,32 +11,70 @@ import api from '../api/axiosConfig';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Create Supabase client with enhanced configuration
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-    storage: localStorage, // Explicitly set storage to localStorage
-    storageKey: 'supabase.auth.token', // Explicitly set the storage key
-  },
-  global: {
-    headers: {
-      'X-Client-Info': 'studiobots-web',
-    },
-  },
-  db: {
-    schema: 'public',
-  },
-  realtime: {
-    params: {
-      eventsPerSecond: 10,
-    },
-  },
-});
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing required Supabase environment variables. Please check your Secrets configuration.');
+}
+
+// Initialize Supabase client
+
+// Add retry logic
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000;
+
+// Test account credentials
+export const createTestAccount = async () => {
+  try {
+    // First check if account exists
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email: 'test@example.com',
+      password: 'Test123!'
+    });
+
+    if (signInData?.user) {
+      return signInData;
+    }
+
+    // If account doesn't exist, create it
+    const { data, error } = await supabase.auth.signUp({
+      email: 'test@example.com',
+      password: 'Test123!',
+      options: {
+        data: {
+          name: 'Test User',
+          plan: 'TRIAL',
+          totalUsageMinutes: 0,
+          planEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+        }
+      }
+    });
+    
+    if (error) {
+      console.error('Error creating test account:', error);
+      throw error;
+    }
+
+    // Create initial profile
+    await saveUserProfile({
+      ownerName: 'Test User',
+      shopName: 'Test Shop',
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      completedOnboarding: true,
+      plan: 'TRIAL'
+    });
+    
+    return data;
+  } catch (error) {
+    console.error('Error in test account setup:', error);
+    throw error;
+  }
+};
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 
 // Enhanced session management with retry logic
 export const getSession = async (retries = 3, delay = 1000) => {
+  console.log('Getting session...');
   for (let i = 0; i < retries; i++) {
     try {
       const {
@@ -217,38 +254,7 @@ export async function createPhoneNumber(
   }
 }
 
-// export async function getPhoneNumber(
-//   model_id: string
-// ): Promise<PhoneNumber | null> {
-//   try {
-//     const { data, error } = await supabase
-//       .from('phone_numbers')
-//       .select('*')
-//       .eq('model_id', model_id)
-//       .single();
 
-//     if (error) throw error;
-//     return data;
-//   } catch (error: any) {
-//     handleDatabaseError(error, 'getPhoneNumber');
-//     throw new Error(`Error: ${error.message}`);
-//   }
-// }
-
-// export async function listPhoneNumbers(): Promise<PhoneNumber[]> {
-//   try {
-//     const { data, error } = await supabase
-//       .from('phone_numbers')
-//       .select('*')
-//       .order('created_at', { ascending: false });
-
-//     if (error) throw error;
-//     return data || [];
-//   } catch (error: any) {
-//     handleDatabaseError(error, 'listPhoneNumbers');
-//     throw new Error(`Error: ${error.message}`);;
-//   }
-// }
 // Optional Preferences functions with enhanced error handling
 export async function saveOptionalPreferences(
   preferences: Omit<OptionalPreferenceInput, 'user_id'>
@@ -295,21 +301,6 @@ export async function updateOptionalPreferences(
   }
 }
 
-// export async function deleteOptionalPreferences(): Promise<void> {
-//   try {
-//     const session = await getSession();
-//     if (!session?.user) throw new Error('Please log in to delete preferences.');
-
-//     const { error } = await supabase
-//       .from('optional_preferences')
-//       .delete()
-//       .eq('user_id', session.user.id);
-
-//     if (error) throw error;
-//   } catch (error) {
-//     handleDatabaseError(error, 'deleteOptionalPreferences');
-//   }
-// }
 
 // Profile functions with enhanced error handling
 export async function saveUserProfile(
@@ -372,7 +363,10 @@ export async function loadUserProfile(): Promise<UserProfile | null> {
     const session = await getSession();
     if (!session?.user) return null;
 
-    const { data } = await api.get(`/user-profile`)
+    console.log('Loading user profile...');
+    const response = await api.get(`/user-profile`);
+    console.log('User profile response:', response);
+    const { data } = response;
     return {
       ownerName: data.owner_name,
       shopName: data.shop_name,

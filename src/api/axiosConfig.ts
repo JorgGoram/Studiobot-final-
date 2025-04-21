@@ -1,60 +1,40 @@
-// src/api/axiosConfig.ts  
+
 import axios from 'axios';
 import { supabase } from '../lib/supabase';
 
-// Create axios instance  
 const api = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:3457/api',
-    headers: {
-        'Content-Type': 'application/json'
-    }
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  timeout: 15000,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
-// Request interceptor for adding auth token  
-api.interceptors.request.use(
-    async (config) => {
-        // Get current session  
-        const { data } = await supabase.auth.getSession();
-        const token = data.session?.access_token;
-
-        // Add token to request headers if exists  
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+// Add auth token to requests
+api.interceptors.request.use(async (config) => {
+  try {
+    const session = await supabase.auth.getSession();
+    if (session?.data?.session?.access_token) {
+      config.headers.Authorization = `Bearer ${session.data.session.access_token}`;
     }
-);
+    return config;
+  } catch (error) {
+    console.error('Auth token error:', error);
+    return config;
+  }
+});
 
-// Response interceptor for error handling  
+// Handle errors with retry logic
 api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        // Global error handling  
-        if (error.response) {
-            // The request was made and the server responded with a status code  
-            switch (error.response.status) {
-                case 401:
-                    // Unauthorized - redirect to login or refresh token  
-                    console.error('Unauthorized access');
-                    break;
-                case 403:
-                    console.error('Forbidden access');
-                    break;
-                case 500:
-                    console.error('Server error');
-                    break;
-            }
-        } else if (error.request) {
-            console.error('No response received');
-        } else {
-            console.error('Error', error.message);
-        }
-        return Promise.reject(error);
+  (response) => response,
+  async (error) => {
+    if (error.message === 'Network Error') {
+      console.error('Network error - server may be down');
+      return Promise.reject(new Error('Unable to connect to server. Please check if the server is running.'));
     }
+    return Promise.reject(error);
+  }
 );
 
 export default api;

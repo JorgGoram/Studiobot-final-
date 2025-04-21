@@ -4,7 +4,8 @@ import {
   History,
   Settings,
   HelpCircle,
-  CreditCard
+  CreditCard,
+  Trophy
 } from 'lucide-react';
 
 export const NAVIGATION_ITEMS = [
@@ -12,6 +13,11 @@ export const NAVIGATION_ITEMS = [
     id: 'dashboard',
     label: 'Home',
     icon: LayoutDashboard
+  },
+  {
+    id: 'gamification',
+    label: 'Rewards',
+    icon: Trophy
   },
   {
     id: 'analytics',
