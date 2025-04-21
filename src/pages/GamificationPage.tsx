@@ -48,8 +48,25 @@ export function GamificationPage({ userXP = 0 }: GamificationPageProps) {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold mb-2">Performance & Achievements</h2>
-            <p className="text-zinc-400">Track your progress and unlock rewards as you excel</p>
+            <p className="text-zinc-400">Our gamification system helps you track progress and stay motivated</p>
           </div>
+        </div>
+
+        {/* Feature Descriptions */}
+        <div className="grid grid-cols-1 gap-8 mb-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass-panel p-6 rounded-xl"
+          >
+            <h3 className="text-xl font-semibold mb-3">How It Works</h3>
+            <div className="space-y-4 text-sm text-zinc-300">
+              <p>• <strong>Experience Points (XP):</strong> Earn XP by completing tasks, handling calls, and achieving milestones</p>
+              <p>• <strong>Levels:</strong> Every 100 XP advances you to the next level, unlocking new achievements</p>
+              <p>• <strong>Badges:</strong> Special recognition for reaching important milestones and mastering different aspects</p>
+              <p>• <strong>Seasonal Events:</strong> Time-limited challenges with exclusive rewards and bonus XP opportunities</p>
+            </div>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 gap-8">

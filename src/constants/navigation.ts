@@ -4,7 +4,8 @@ import {
   History,
   Settings,
   HelpCircle,
-  CreditCard
+  CreditCard,
+  Trophy
 } from 'lucide-react';
 
 export const NAVIGATION_ITEMS = [
