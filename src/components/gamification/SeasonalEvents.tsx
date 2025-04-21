@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { supabase } from '../../lib/supabase';
-import { Calendar, Clock, Award } from 'lucide-react';
+import { Calendar, Clock, Award, Star } from 'lucide-react';
 
 interface SeasonalEvent {
   id: string;
@@ -12,6 +12,7 @@ interface SeasonalEvent {
   end_date: string;
   reward_description: string;
   xp_reward: number;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
 }
 
 export function SeasonalEvents() {
@@ -43,20 +44,40 @@ export function SeasonalEvents() {
     });
   };
 
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'beginner': return 'text-green-400';
+      case 'intermediate': return 'text-yellow-400';
+      case 'advanced': return 'text-red-400';
+      default: return 'text-gray-400';
+    }
+  };
+
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold mb-4">Professional Development Events</h2>
-      <div className="grid grid-cols-1 gap-4">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-semibold">Performance Challenges</h2>
+          <p className="text-sm text-gray-400 mt-1">Special events to boost your skills</p>
+        </div>
+      </div>
+
+      <div className="space-y-4">
         {events.map((event) => (
           <motion.div
             key={event.id}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="p-6 rounded-lg bg-indigo-900/20 border border-indigo-500/20"
+            className="p-6 rounded-lg bg-indigo-900/20 border border-indigo-500/20 hover:bg-indigo-900/30 transition-all duration-300"
           >
             <div className="flex items-start justify-between">
               <div className="space-y-2">
-                <h3 className="text-lg font-medium text-indigo-300">{event.title}</h3>
+                <div className="flex items-center space-x-2">
+                  <h3 className="text-lg font-medium text-indigo-300">{event.title}</h3>
+                  <span className={`text-sm ${getDifficultyColor(event.difficulty)}`}>
+                    • {event.difficulty}
+                  </span>
+                </div>
                 <p className="text-gray-400">{event.description}</p>
                 <div className="flex items-center space-x-4 text-sm text-gray-500">
                   <div className="flex items-center">
@@ -64,7 +85,7 @@ export function SeasonalEvents() {
                     {formatDate(event.start_date)} - {formatDate(event.end_date)}
                   </div>
                   <div className="flex items-center">
-                    <Award className="w-4 h-4 mr-1" />
+                    <Star className="w-4 h-4 mr-1" />
                     {event.xp_reward} XP
                   </div>
                 </div>
@@ -74,9 +95,15 @@ export function SeasonalEvents() {
                 <span>Active</span>
               </div>
             </div>
-            <div className="mt-4 p-3 rounded bg-indigo-800/20 text-indigo-300">
-              <h4 className="font-medium mb-1">Reward:</h4>
-              <p className="text-sm">{event.reward_description}</p>
+            
+            <div className="mt-4 p-3 rounded bg-indigo-800/20">
+              <div className="flex items-start space-x-2">
+                <Award className="w-5 h-5 text-indigo-300 mt-1" />
+                <div>
+                  <h4 className="font-medium text-indigo-300">Reward:</h4>
+                  <p className="text-sm text-indigo-200/80 mt-1">{event.reward_description}</p>
+                </div>
+              </div>
             </div>
           </motion.div>
         ))}

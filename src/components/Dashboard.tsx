@@ -105,6 +105,47 @@ export function Dashboard({ data, userProfile }: DashboardPropsType) {
         <SeasonalEvents />
       </div>
 
+      {/* Gamification Section */}
+      <div className="space-y-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold mb-2">Performance & Achievements</h2>
+            <p className="text-zinc-400">Track your progress and unlock rewards as you excel</p>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 gap-8">
+          {/* Badges Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass-panel p-6 rounded-xl"
+          >
+            <Badges userXP={analysisData.total_complete || 0} />
+          </motion.div>
+
+          {/* Forest Growth Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="glass-panel p-6 rounded-xl"
+          >
+            <ForestGrowth xp={analysisData.total_complete || 0} />
+          </motion.div>
+
+          {/* Seasonal Events Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="glass-panel p-6 rounded-xl"
+          >
+            <SeasonalEvents />
+          </motion.div>
+        </div>
+      </div>
+
       {/* Quick Stats */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <motion.div
