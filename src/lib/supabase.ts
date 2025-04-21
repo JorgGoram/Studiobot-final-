@@ -1,4 +1,3 @@
-
 import { createClient } from '@supabase/supabase-js';
 import type { UserProfile } from '../types/UserProfile';
 import type {
@@ -12,29 +11,12 @@ import api from '../api/axiosConfig';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Create Supabase client with enhanced configuration
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-    storage: localStorage, // Explicitly set storage to localStorage
-    storageKey: 'supabase.auth.token', // Explicitly set the storage key
-  },
-  global: {
-    headers: {
-      'X-Client-Info': 'studiobots-web',
-    },
-  },
-  db: {
-    schema: 'public',
-  },
-  realtime: {
-    params: {
-      eventsPerSecond: 10,
-    },
-  },
-});
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase credentials');
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 
 // Enhanced session management with retry logic
 export const getSession = async (retries = 3, delay = 1000) => {
@@ -217,38 +199,7 @@ export async function createPhoneNumber(
   }
 }
 
-// export async function getPhoneNumber(
-//   model_id: string
-// ): Promise<PhoneNumber | null> {
-//   try {
-//     const { data, error } = await supabase
-//       .from('phone_numbers')
-//       .select('*')
-//       .eq('model_id', model_id)
-//       .single();
 
-//     if (error) throw error;
-//     return data;
-//   } catch (error: any) {
-//     handleDatabaseError(error, 'getPhoneNumber');
-//     throw new Error(`Error: ${error.message}`);
-//   }
-// }
-
-// export async function listPhoneNumbers(): Promise<PhoneNumber[]> {
-//   try {
-//     const { data, error } = await supabase
-//       .from('phone_numbers')
-//       .select('*')
-//       .order('created_at', { ascending: false });
-
-//     if (error) throw error;
-//     return data || [];
-//   } catch (error: any) {
-//     handleDatabaseError(error, 'listPhoneNumbers');
-//     throw new Error(`Error: ${error.message}`);;
-//   }
-// }
 // Optional Preferences functions with enhanced error handling
 export async function saveOptionalPreferences(
   preferences: Omit<OptionalPreferenceInput, 'user_id'>
@@ -295,21 +246,6 @@ export async function updateOptionalPreferences(
   }
 }
 
-// export async function deleteOptionalPreferences(): Promise<void> {
-//   try {
-//     const session = await getSession();
-//     if (!session?.user) throw new Error('Please log in to delete preferences.');
-
-//     const { error } = await supabase
-//       .from('optional_preferences')
-//       .delete()
-//       .eq('user_id', session.user.id);
-
-//     if (error) throw error;
-//   } catch (error) {
-//     handleDatabaseError(error, 'deleteOptionalPreferences');
-//   }
-// }
 
 // Profile functions with enhanced error handling
 export async function saveUserProfile(
